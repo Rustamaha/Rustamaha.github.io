@@ -1,0 +1,46 @@
+.app {
+	background-color: #C2EAA6;
+}
+
+h5.title-friends {
+  margin-top: 20px;
+	text-align: center;
+  color: black;
+}
+
+.btn-login {
+  text-align: center;
+  height: 100vh;
+  padding-top: 15px;
+}
+
+.btn-logout {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.user {
+	width: 600px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  img {
+    max-width: 250px;
+  }
+}
+
+.card-body {
+  background-color: #6FCA31;
+}
+
+.row-friends {
+  margin-bottom: 0px;
+}
+
+.card-friend {
+  width: 230px;
+  margin: 40px 0 0 30px;  	
+}
+
+@import "~bootstrap/scss/bootstrap";
