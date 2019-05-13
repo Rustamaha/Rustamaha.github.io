@@ -2,7 +2,7 @@
   "name": "Rustamaha.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Rustamaha.github.io/Rustamaha.github.io/",
+  "homepage": "https://rustamaha.github.io/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "gh-pages": "^2.0.1",
