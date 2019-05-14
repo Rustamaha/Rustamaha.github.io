@@ -20,10 +20,10 @@ export default class App extends React.Component {
     };
   }
 
-  loadData() {
+  loadData(user) {
     const { userId } = this.state;
     const params = {
-      user_ids: userId,
+      user_ids: user,
       v: '5.73',
       fields: 'sex,bdate,photo_100',
     };
@@ -56,7 +56,7 @@ export default class App extends React.Component {
           userId: userId,
           status: response.status,
         });
-        this.loadData();
+        this.loadData(userId);
       } else {
         return;
       }
