@@ -1,12 +1,15 @@
 import React from 'react';
 
 const VK = window.VK;
+VK.init({
+  apiId: 6983629,
+});
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appId: 6978024,
+      appId: 69836295,
       status: '',
       userId: '',
       user: {},
@@ -14,14 +17,14 @@ export default class App extends React.Component {
     };
   }
 
-  loadData() {
+  async loadData() {
     const { userId } = this.state;
     const params = {
       user_ids: userId,
       v: '5.73',
       fields: 'sex,bdate,photo_200',
     };
-    VK.Api.call('users.get', params, r => {
+    await VK.Api.call('users.get', params, r => {
       if (r.response) {
         const { first_name, last_name, photo_200, sex, bdate } = r.response[0];
         this.setState({
@@ -36,7 +39,7 @@ export default class App extends React.Component {
       } else throw new Error('ERROR');
     });
     const paramsFriends = { ...params, order: 'random', count: 5 };
-    VK.Api.call('friends.get', paramsFriends, r => {
+    await VK.Api.call('friends.get', paramsFriends, r => {
       const friends = r.response.items;
       const newFriends = friends.map(({ first_name, last_name, photo_200, sex, bdate, id }) =>
         ({ first_name, last_name, photo_200, sex, bdate, id }));
@@ -45,11 +48,6 @@ export default class App extends React.Component {
   }
 
   getvkAuthStatus() {
-    const { appId } = this.state;
-    VK.init({
-      apiId: appId,
-    });
-
     VK.Auth.getLoginStatus(response => {
       if (response.status === 'connected') {
         const userId = response.session.mid;
@@ -106,7 +104,7 @@ export default class App extends React.Component {
             <div className="card-body">
               <h5 className="card-title">{first_name} {last_name}</h5>
               <p className="card-text">{bdate && `Дата рождения ${bdate}`}</p>
-              <p className="card-text">Пол {sex === 2 ? 'мужской' : 'женский'}</p>
+              <p className="card-text">{sex === 2 ? 'Пол мужской' : 'Пол женский'}</p>
             </div>
           </div>
         ))}
@@ -138,18 +136,16 @@ export default class App extends React.Component {
   renderUserCard() {
     const { firstName, lastName, photo, sex, bdate } = this.state.user;
     return (
+      
       <div className="card user">
-        <div className="row no-gutters">
-          <div className="col-4 col-md-5">
-            <img src={photo} className="card-img" alt="..." />
-          </div>
-          <div className="col-8 col-md-7 card-body">
-            <h5>Приветствую тебя {firstName} {lastName}!</h5>
-            <p className="card-text">{bdate && `Дата рождения ${bdate}`}</p>
-            <p className="card-text">Пол {sex === 2 ? 'мужской' : 'женский'}</p>
-          </div>
+        <img src={photo} className="card-img-top" alt="..." />
+        <div className="card-body">
+          <h5 className="card-title">Приветствую тебя {firstName} {lastName}!</h5>
+          <p className="card-text">{bdate && `Дата рождения ${bdate}`}</p>
+          <p className="card-text">{sex === 2 ? 'Пол мужской' : 'Пол женский'}</p>
         </div>
       </div>
+      
     );
   }
 
