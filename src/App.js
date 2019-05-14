@@ -1,15 +1,18 @@
 import React from 'react';
 
+const appId = 6978024;
+/* eslint-disable */
 const VK = window.VK;
 VK.init({
-  apiId: 6978024,
+  apiId: appId,
 });
+/* eslint-disable */
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appId: 6978024,
+      appId: appId,
       status: '',
       userId: '',
       user: {},
@@ -17,29 +20,27 @@ export default class App extends React.Component {
     };
   }
 
-  async loadData() {
+  loadData() {
     const { userId } = this.state;
     const params = {
       user_ids: userId,
       v: '5.73',
       fields: 'sex,bdate,photo_100',
     };
-    await VK.Api.call('users.get', params, r => {
-      if (r.response) {
-        const { first_name, last_name, photo_100, sex, bdate } = r.response[0];
-        this.setState({
-          user: {
-            firstName: first_name,
-            lastName: last_name,
-            photo: photo_100,
-            sex: sex,
-            bdate: bdate,
-          },
-        });
-      } else throw new Error('ERROR');
+    VK.Api.call('users.get', params, r => {
+      const { first_name, last_name, photo_100, sex, bdate } = r.response[0];
+      this.setState({
+        user: {
+          firstName: first_name,
+          lastName: last_name,
+          photo: photo_100,
+          sex: sex,
+          bdate: bdate,
+        },
+      });
     });
     const paramsFriends = { ...params, order: 'random', count: 5 };
-    await VK.Api.call('friends.get', paramsFriends, r => {
+    VK.Api.call('friends.get', paramsFriends, r => {
       const friends = r.response.items;
       const newFriends = friends.map(({ first_name, last_name, photo_100, sex, bdate, id }) =>
         ({ first_name, last_name, photo_100, sex, bdate, id }));
