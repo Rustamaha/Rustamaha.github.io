@@ -1,6 +1,6 @@
 import React from 'react';
 
-const appId = 6978024;
+const appId = 6983629;
 /* eslint-disable */
 const VK = window.VK;
 VK.init({
@@ -12,16 +12,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appId: appId,
       status: '',
-      userId: '',
       user: {},
       friends: [],
     };
   }
 
   loadData(user) {
-    const { userId } = this.state;
     const params = {
       user_ids: user,
       v: '5.73',
@@ -53,7 +50,6 @@ export default class App extends React.Component {
       if (response.status === 'connected') {
         const userId = response.session.mid;
         this.setState({
-          userId: userId,
           status: response.status,
         });
         this.loadData(userId);
@@ -71,7 +67,7 @@ export default class App extends React.Component {
           userId: userId,
           status: response.status,
         });
-        this.loadData(); 
+        this.loadData(userId); 
       } else {
         return;
       }
