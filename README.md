@@ -4,4 +4,4 @@ React app where you can make authorization through vk.com and this app will show
 
 Then run app ***npm run start***
 
-https://test-webim.netlify.com/
+You can see this at https://test-webim.netlify.com/
