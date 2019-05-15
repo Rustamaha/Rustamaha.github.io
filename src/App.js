@@ -1,6 +1,6 @@
 import React from 'react';
 
-const appId = 6983629;
+const appId = 6978024;
 /* eslint-disable */
 const VK = window.VK;
 VK.init({
@@ -22,15 +22,15 @@ export default class App extends React.Component {
     const params = {
       user_ids: user,
       v: '5.73',
-      fields: 'sex,bdate,photo_100',
+      fields: 'sex,bdate,photo_200',
     };
     VK.Api.call('users.get', params, r => {
-      const { first_name, last_name, photo_100, sex, bdate } = r.response[0];
+      const { first_name, last_name, photo_200, sex, bdate } = r.response[0];
       this.setState({
         user: {
           firstName: first_name,
           lastName: last_name,
-          photo: photo_100,
+          photo: photo_200,
           sex: sex,
           bdate: bdate,
         },
@@ -39,8 +39,8 @@ export default class App extends React.Component {
     const paramsFriends = { ...params, order: 'random', count: 5 };
     VK.Api.call('friends.get', paramsFriends, r => {
       const friends = r.response.items;
-      const newFriends = friends.map(({ first_name, last_name, photo_100, sex, bdate, id }) =>
-        ({ first_name, last_name, photo_100, sex, bdate, id }));
+      const newFriends = friends.map(({ first_name, last_name, photo_200, sex, bdate, id }) =>
+        ({ first_name, last_name, photo_200, sex, bdate, id }));
       this.setState({ friends: newFriends });
     });
   }
@@ -95,9 +95,9 @@ export default class App extends React.Component {
       <div>
         <h5 className="title-friends">Вот несколько твоих друзей</h5>
       <div className="row row-friends d-flex justify-content-center">
-        {friends.map(({ first_name, last_name, photo_100, sex, id, bdate }) => (
+        {friends.map(({ first_name, last_name, photo_200, sex, id, bdate }) => (
           <div key={id} className="card card-friend">
-            <img src={photo_100} className="card-img-top" alt="..." />
+            <img src={photo_200} className="card-img-top" alt="..." />
             <div className="card-body">
               <h5 className="card-title">{first_name} {last_name}</h5>
               <p className="card-text">{bdate && `Дата рождения ${bdate}`}</p>
